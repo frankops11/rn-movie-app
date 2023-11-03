@@ -23,8 +23,8 @@ const MovieCard = ({nowPlayingMovie}: MovieCardProps) => {
 
 const styles = StyleSheet.create({
   image: {
-    width: 300,
-    height: 420,
+    width: 280,
+    height: 380,
     shadowColor: '#171717',
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.3,
