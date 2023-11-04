@@ -7,8 +7,12 @@ import MovieCard from '../components/MovieCard';
 import useMovies from '../hooks/useMovies';
 import useScreenDimensions from '../hooks/useDimensions';
 import MovieSlider from '../components/MovieSlider';
+import {StackScreenProps} from '@react-navigation/stack';
+import {RootStackParams} from '../router/StackNavigator';
 
-const Home = () => {
+interface HomeProps extends StackScreenProps<RootStackParams, 'Home'> {}
+
+const Home: React.FC<HomeProps> = ({navigation}) => {
   const {movieData} = useMovies();
   const {viewportWidth} = useScreenDimensions();
 
@@ -20,16 +24,22 @@ const Home = () => {
           itemWidth={280}
           sliderWidth={viewportWidth}
           containerCustomStyle={styles.carouselContainer}
-          renderItem={slideValue => <MovieCard movie={slideValue.item} />}
+          renderItem={slideValue => (
+            <MovieCard
+              movie={slideValue.item}
+              onPress={() => navigation.navigate('Detail', slideValue?.item)}
+            />
+          )}
         />
 
         <MovieSlider
           title="Popular"
-          renderItem={item => (
+          renderItem={movie => (
             <MovieCard
               size="small"
-              movie={item.item}
+              movie={movie.item}
               containerStyle={styles.slideSeparator}
+              onPress={() => navigation.navigate('Detail', movie?.item)}
             />
           )}
           keyExtractor={item => item.id.toString()}
@@ -38,11 +48,12 @@ const Home = () => {
 
         <MovieSlider
           title="Top rated"
-          renderItem={item => (
+          renderItem={movie => (
             <MovieCard
               size="small"
-              movie={item.item}
+              movie={movie.item}
               containerStyle={styles.slideSeparator}
+              onPress={() => navigation.navigate('Detail', movie?.item)}
             />
           )}
           keyExtractor={item => item.id.toString()}
@@ -51,11 +62,12 @@ const Home = () => {
 
         <MovieSlider
           title="Upcoming"
-          renderItem={item => (
+          renderItem={movie => (
             <MovieCard
               size="medium"
-              movie={item.item}
+              movie={movie.item}
               containerStyle={styles.slideSeparator}
+              onPress={() => navigation.navigate('Detail', movie?.item)}
             />
           )}
           keyExtractor={item => item.id.toString()}

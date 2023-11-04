@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-  View,
   ImageBackground,
   StyleSheet,
   StyleProp,
   ViewStyle,
+  TouchableOpacity,
 } from 'react-native';
+
 import {Movie} from '../interfaces/movie_response.interface';
 
 type MovieCardSize = 'small' | 'medium' | 'large';
@@ -14,11 +15,20 @@ interface MovieCardProps {
   movie: Movie;
   size?: MovieCardSize;
   containerStyle?: StyleProp<ViewStyle>;
+  onPress?: () => void;
 }
 
-const MovieCard = ({movie, size = 'large', containerStyle}: MovieCardProps) => {
+const MovieCard = ({
+  movie,
+  size = 'large',
+  containerStyle,
+  onPress,
+}: MovieCardProps) => {
   return (
-    <View style={containerStyle}>
+    <TouchableOpacity
+      style={containerStyle}
+      activeOpacity={0.8}
+      onPress={onPress ? onPress : undefined}>
       <ImageBackground
         source={{
           uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`,
@@ -27,7 +37,7 @@ const MovieCard = ({movie, size = 'large', containerStyle}: MovieCardProps) => {
         style={[styles.image, styles[size as keyof typeof styles]]}
         borderRadius={18}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 
