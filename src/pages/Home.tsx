@@ -1,26 +1,22 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
 
 import MovieCard from '../components/MovieCard';
-import useNowPlaying from '../hooks/useNowPlaying';
+import useMovies from '../hooks/useMovies';
 import useScreenDimensions from '../hooks/useDimensions';
 import MovieSlider from '../components/MovieSlider';
 
 const Home = () => {
-  const {nowPlayingList, isFetchingNowPlaying} = useNowPlaying();
+  const {movieData} = useMovies();
   const {viewportWidth} = useScreenDimensions();
-
-  if (isFetchingNowPlaying) {
-    return <Text>Loading</Text>;
-  }
 
   return (
     <SafeAreaView>
       <ScrollView>
         <Carousel
-          data={nowPlayingList}
+          data={movieData?.now_playing}
           itemWidth={280}
           sliderWidth={viewportWidth}
           containerCustomStyle={styles.carouselContainer}
@@ -28,7 +24,7 @@ const Home = () => {
         />
 
         <MovieSlider
-          title="En cines"
+          title="Popular"
           renderItem={item => (
             <MovieCard
               size="small"
@@ -37,11 +33,24 @@ const Home = () => {
             />
           )}
           keyExtractor={item => item.id.toString()}
-          data={nowPlayingList}
+          data={movieData?.popular}
         />
 
         <MovieSlider
-          title="Proximos estrenos"
+          title="Top rated"
+          renderItem={item => (
+            <MovieCard
+              size="small"
+              movie={item.item}
+              containerStyle={styles.slideSeparator}
+            />
+          )}
+          keyExtractor={item => item.id.toString()}
+          data={movieData?.top_rated}
+        />
+
+        <MovieSlider
+          title="Upcoming"
           renderItem={item => (
             <MovieCard
               size="medium"
@@ -50,7 +59,7 @@ const Home = () => {
             />
           )}
           keyExtractor={item => item.id.toString()}
-          data={nowPlayingList}
+          data={movieData?.upcoming}
         />
       </ScrollView>
     </SafeAreaView>

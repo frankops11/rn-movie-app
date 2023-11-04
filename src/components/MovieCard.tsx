@@ -6,12 +6,12 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import {Result} from '../interfaces/now_playing.interface';
+import {Movie} from '../interfaces/movie_response.interface';
 
 type MovieCardSize = 'small' | 'medium' | 'large';
 
 interface MovieCardProps {
-  movie: Result;
+  movie: Movie;
   size?: MovieCardSize;
   containerStyle?: StyleProp<ViewStyle>;
 }
