@@ -15,6 +15,7 @@ interface MovieCardProps {
   movie: Movie;
   size?: MovieCardSize;
   containerStyle?: StyleProp<ViewStyle>;
+  imageStyles?: StyleProp<ViewStyle>;
   onPress?: () => void;
 }
 
@@ -23,6 +24,7 @@ const MovieCard = ({
   size = 'large',
   containerStyle,
   onPress,
+  imageStyles,
 }: MovieCardProps) => {
   return (
     <TouchableOpacity
@@ -34,7 +36,7 @@ const MovieCard = ({
           uri: `https://image.tmdb.org/t/p/w500/${movie.poster_path}`,
         }}
         resizeMode="cover"
-        style={[styles.image, styles[size as keyof typeof styles]]}
+        style={[styles.image, styles[size as keyof typeof styles], imageStyles]}
         borderRadius={18}
       />
     </TouchableOpacity>
