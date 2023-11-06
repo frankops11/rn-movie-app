@@ -1,4 +1,5 @@
 import {Dimensions, ScrollView, StyleSheet, View, Text} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import React, {FC} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../router/StackNavigator';
@@ -22,6 +23,7 @@ const Detail: FC<DetailProps> = ({route}) => {
       <View>
         <Text>{movie.original_title}</Text>
         <Text>{movie.title}</Text>
+        <Icon name="rocket" size={30} color="#900" />
       </View>
     </ScrollView>
   );
